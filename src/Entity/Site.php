@@ -35,19 +35,9 @@ class Site
     private $CreatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=SiteLoginUser::class, mappedBy="IdSite", cascade={"persist", "remove"})
-     */
-    private $IdSiteLoginUser;
-
-    /**
      * @ORM\ManyToMany(targetEntity=User::class)
      */
     private $IdUser;
-
-    /**
-     * @ORM\OneToOne(targetEntity=SiteLoginPassword::class, mappedBy="IdSite", cascade={"persist", "remove"})
-     */
-    private $IdSiteLoginPassword;
 
     public function __construct()
     {
@@ -95,23 +85,6 @@ class Site
         return $this;
     }
 
-    public function getIdSiteLoginUser(): ?SiteLoginUser
-    {
-        return $this->IdSiteLoginUser;
-    }
-
-    public function setIdSiteLoginUser(SiteLoginUser $IdSiteLoginUser): self
-    {
-        // set the owning side of the relation if necessary
-        if ($IdSiteLoginUser->getIdSite() !== $this) {
-            $IdSiteLoginUser->setIdSite($this);
-        }
-
-        $this->IdSiteLoginUser = $IdSiteLoginUser;
-
-        return $this;
-    }
-
     /**
      * @return Collection|User[]
      */
@@ -136,20 +109,4 @@ class Site
         return $this;
     }
 
-    public function getIdSiteLoginPassword(): ?SiteLoginPassword
-    {
-        return $this->IdSiteLoginPassword;
-    }
-
-    public function setIdSiteLoginPassword(SiteLoginPassword $IdSiteLoginPassword): self
-    {
-        // set the owning side of the relation if necessary
-        if ($IdSiteLoginPassword->getIdSite() !== $this) {
-            $IdSiteLoginPassword->setIdSite($this);
-        }
-
-        $this->IdSiteLoginPassword = $IdSiteLoginPassword;
-
-        return $this;
-    }
 }
