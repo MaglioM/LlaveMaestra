@@ -14,8 +14,8 @@ class SiteType extends AbstractType
         $builder
             ->add('Name')
             ->add('Description')
-            //->add('CreatedAt')
-            //->add('IdUser')
+            ->add('LoginUser')
+            ->add('LoginPassword')
         ;
     }
 

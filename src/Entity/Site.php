@@ -39,6 +39,16 @@ class Site
      */
     private $IdUser;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $LoginUser;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $LoginPassword;
+
     public function __construct()
     {
         $this->IdUser = new ArrayCollection();
@@ -105,6 +115,30 @@ class Site
     public function removeIdUser(User $idUser): self
     {
         $this->IdUser->removeElement($idUser);
+
+        return $this;
+    }
+
+    public function getLoginUser(): ?string
+    {
+        return $this->LoginUser;
+    }
+
+    public function setLoginUser(?string $LoginUser): self
+    {
+        $this->LoginUser = $LoginUser;
+
+        return $this;
+    }
+
+    public function getLoginPassword(): ?string
+    {
+        return $this->LoginPassword;
+    }
+
+    public function setLoginPassword(?string $LoginPassword): self
+    {
+        $this->LoginPassword = $LoginPassword;
 
         return $this;
     }
