@@ -22,11 +22,10 @@ class SiteRepository extends ServiceEntityRepository
     // /**
     //  * @return Site[] Returns an array of Site objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findByCreatedBy($value)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+            ->andWhere('s.CreatedBy = :val')
             ->setParameter('val', $value)
             ->orderBy('s.id', 'ASC')
             ->setMaxResults(10)
@@ -34,7 +33,6 @@ class SiteRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Site

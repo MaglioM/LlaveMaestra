@@ -49,6 +49,12 @@ class Site
      */
     private $LoginPassword;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $CreatedBy;
+
     public function __construct()
     {
         $this->IdUser = new ArrayCollection();
@@ -141,6 +147,33 @@ class Site
         $this->LoginPassword = $LoginPassword;
 
         return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->CreatedBy;
+    }
+
+    public function setCreatedBy(?User $CreatedBy): self
+    {
+        $this->CreatedBy = $CreatedBy;
+
+        return $this;
+    }
+
+    public function generateRandomPassword(?int $passwordLen): string
+    {
+	$letterSeed = 'abcdefghijklmnopqrstuvwxyzABCDEFHGIJKLMNOPQRSTUVWXYZ';
+	$numberSeed = '0123456789';
+	$specialSeed = '¿?¡%&$#';
+	$password = '';
+
+	for ($i = 0; $i < $passwordLen; $i++){
+            $newChar = substr(str_shuffle($letterSeed), 0,1);
+	    $password = $password . $newChar;
+	}
+	
+	return $password;
     }
 
 }
