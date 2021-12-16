@@ -1,1 +1,13 @@
-muy pronto
+{% extends 'base.html.twig' %}
+
+{% block title %}Share Site{% endblock %}
+
+{% block body %}
+    <h1>Compartir sitio</h1>
+
+	{{ form_start(shareForm) }}
+	    {{ form_widget(shareForm) }}
+	{{ form_end(shareForm) }}
+
+    <a href="{{ path('site_index') }}">back to list</a>
+{% endblock %}

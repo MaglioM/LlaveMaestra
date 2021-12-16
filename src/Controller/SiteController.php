@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Site;
 use App\Form\SiteType;
 use App\Form\RandomPasswordType;
+use App\Form\ShareType;
 use App\Repository\SiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +26,23 @@ class SiteController extends AbstractController
         ]);
     }
 
+    #[Route('/shared', name: 'shared', methods: ['GET'])]
+    public function shared(SiteRepository $siteRepository, UserInterface $user): Response
+    {
+	$entityManager = $this->getDoctrine()->getManager();
+	$queryBuilder = $entityManager->getConnection()->createQueryBuilder();
+	$results = $queryBuilder
+		->select('Name, Description, id')
+		->from('site','s')
+		->innerJoin('s','site_user','su', 's.id = su.site_id')
+		->where('su.user_id = ' . $user->getId())
+	;
+
+        return $this->render('site/shared.html.twig', [
+            'sites' => $results->fetchAllAssociative(),
+        ]);
+    }
+    
     #[Route('/new', name: 'site_new', methods: ['GET','POST'])]
     public function new(Request $request, UserInterface $user): Response
     {
@@ -91,11 +109,31 @@ class SiteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/share', name: 'site_share', methods: ['GET'])]
+    #[Route('/{id}/share', name: 'site_share', methods: ['GET','POST'])]
     public function share(Request $request, Site $site): Response
     {
+	$shareForm = $this->createForm(ShareType::class);
+	$shareForm->handleRequest($request);
+
+        if ($shareForm->isSubmitted() && $shareForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $sharedUser = $entityManager->createQuery(
+                'SELECT u
+                FROM App\Entity\User u
+                WHERE u.email = :formResult'
+            )
+            ->setParameter('formResult', $shareForm->get('SharedUser')->getData())
+            ->getOneOrNullResult();
+
+	    $site->addIdUser($sharedUser);
+            $entityManager->persist($site);
+            $entityManager->flush();
+            return $this->redirectToRoute('site_index', [], Response::HTTP_SEE_OTHER);
+	}
+
         return $this->render('site/share.html.twig', [
             'site' => $site,
+	    'shareForm' => $shareForm->createView(),
         ]);
     }
 

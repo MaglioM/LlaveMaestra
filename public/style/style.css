@@ -1,0 +1,21 @@
+body {
+	background-color: #0b2045;
+	padding: 3%;
+	margin-top: 30px;
+}
+
+h1, th, td, a , label{
+	color:#ffe285;
+}
+
+#nav {
+        position: fixed;
+        top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+}
+
+#nav a {
+	margin-left:1em;
+}

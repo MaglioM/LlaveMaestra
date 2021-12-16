@@ -6,17 +6,18 @@ use App\Entity\Site;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SiteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Name')
-            ->add('Description')
+            ->add('Name', null, ['label'=>'Nombre']) 
+            ->add('Description', null, ['label'=>'Descripción'])
             ->add('LoginUser')
             ->add('LoginPassword')
+    	    ->add('GuardarSitio', SubmitType::class)
         ;
     }
 
