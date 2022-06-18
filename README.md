@@ -2,14 +2,14 @@
 
 ### Proyecto para la materia de Seminario 2 de la carrera de Análisís de Sistemas del IFTS 16
 
-## Descripción
+## Description.
 
-Gestor de contraseñas. Permite al usuario generar y recuperar la información de logueo para las páginas que desee.
+Password manager. Allows user to generate and recover login credentials for the specified sites.
 
-## Estado del proyecto
+## Project status
 
-El proyecto ya tiene sus funcionalidades implementadas para lo que fue la presentación en la materia. Todavía quedan pendientes algunas medidas de seguridad para que sea recomendable de usar.
+Main functionalities already implemented for academic purposes. Still pending some security implementations for it to be recommendable to use.
 
 ## Implementación
 
-Aplicación web desarrollada en php a través del framework Symfony.
+Webapp developed in PHP using Symfony framework
